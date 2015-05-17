@@ -1,0 +1,21 @@
+---
+title: "Reproducible Research: Peer Assessment 1"
+output: 
+  html_document:
+    keep_md: true
+---
+
+## Loading data, ommits NA's
+```{r}
+data <- read.csv('activity.csv')
+data <- na.omit(data)
+charsDates <- as.character(data$date)
+data$date <- as.Date(charsDates, "%Y-%m-%d")
+```
+
+## What is mean total number of steps taken per day?
+```{r}
+sumByDay <- aggregate(steps ~ date, data, sum)
+hist(sumByDay$steps)
+```
+Mean total number of steps taken by day is `r mean(sumByDay$steps)` and median is `r median(sumByDay$steps)` 
